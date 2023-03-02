@@ -6,7 +6,7 @@ const candidateController = {};
 const redisClient = redis.createClient(6379, "127.0.0.1");
 redisClient.connect();
 
-//Create Canidate   
+//Create Canidate
 candidateController.create = async (req, res) => {
   const body = req.body;
 
@@ -46,33 +46,32 @@ candidateController.create = async (req, res) => {
 };
 
 candidateController.list = async (req, res) => {
-  const {page, limit} = req.query
-  const skipIndex = (page-1)*limit
-  
-  try {
-    let keyName = `candidatelist:${page}:${limit}`
-    
-    let cacheData = await redisClient.get(keyName)
+  const { page, limit } = req.query;
+  const skipIndex = (page - 1) * limit;
 
-    if(cacheData){
-      let data = JSON.parse(cacheData)
-      console.log("data from INSIDE REDIS")
-      res.status(200).json(data)
-    }
-    else{
+  try {
+    let keyName = `candidatelist:${page}:${limit}`;
+
+    let cacheData = await redisClient.get(keyName);
+
+    if (cacheData) {
+      let data = JSON.parse(cacheData);
+      console.log("data from INSIDE REDIS");
+      res.status(200).json(data);
+    } else {
       const data = await Candidate.aggregate([
         {
-          '$sort': { 'createdAt': -1}, 
+          $sort: { createdAt: -1 },
         },
         {
-          '$skip': Number(skipIndex)
+          $skip: Number(skipIndex),
         },
         {
-          '$limit': Number(limit)
-        }
-        ])
-      redisClient.set(keyName, JSON.stringify(data), {EX: 300})
-      console.log("data from inside db")
+          $limit: Number(limit),
+        },
+      ]);
+      redisClient.set(keyName, JSON.stringify(data), { EX: 300 });
+      console.log("data from inside db");
       res.status(200).json(data);
     }
   } catch {
