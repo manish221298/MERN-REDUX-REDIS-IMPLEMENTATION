@@ -1,16 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
 const AddEmployee = () => {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [wife, setWife] = useState("")
+  const [employee, setEmployee] = useState({
+    name: "manish",
+    email: "",
+    phone: "",
+    wife: "",
+  });
 
-    return ( 
-        <div>
+  const {name, email, phone, wife} = employee
 
-        </div>
-     );
-}
- 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setEmployee((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+
+  return (
+    <div>
+
+    </div>
+  )
+};
+
 export default AddEmployee;

@@ -1,6 +1,7 @@
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, increment_by } from './actions/countAction';
+import AddEmployee from './Component/AddEmployee';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <h3>Implement Redux with React {count}</h3>
       <button onClick={handleIncrement} >Add</button>
       <button onClick={handleIncrement7} >Add + 7</button>
+      <AddEmployee />
     </div>
   );
 }
