@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
+import { startAddEmployee } from "../actions/employeeAction";
 
 const AddEmployee = () => {
+
+  const dispatch = useDispatch()
+
   const [employee, setEmployee] = useState({
     name: "",
     email: "",
@@ -16,7 +20,7 @@ const AddEmployee = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("employee inside submit", employee)
+    dispatch(startAddEmployee(employee))
 
   }
 
