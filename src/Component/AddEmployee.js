@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startAddEmployee } from "../actions/employeeAction";
 
 const AddEmployee = () => {
@@ -21,8 +21,13 @@ const AddEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(startAddEmployee(employee))
-
   }
+
+  const employeeList = useSelector(employee => {
+    return employee.employee
+  })
+
+  console.log("employee list", employeeList)
 
   return (
     <div>
